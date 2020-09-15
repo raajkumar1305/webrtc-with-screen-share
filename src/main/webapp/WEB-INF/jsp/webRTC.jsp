@@ -8,9 +8,11 @@
 
         <script>
             if(!location.hash.replace('#', '').length) {
+console.log(location.href);
                 location.href = location.href.split('#')[0] + '#' + (Math.random() * 100).toString().replace('.', '');
                 location.reload();
-            }
+
+                }
         </script>
 
         <meta charset="utf-8">
@@ -82,17 +84,16 @@
     <body>
         <article>
             <header style="text-align: center;">
-                <h1>
-                    Video Conferencing
-                </h1>
+			<div style="margin:0 auto;text-align:center">
+				<input type="text" id="meetingAddress" style="width: 50%;margin-top:30px;" readonly>
+			</div>
+               
             </header>
 
-            <div class="github-stargazers"></div>
-
-            <!-- just copy this <section> and next script -->
             <section class="experiment">
-              <table>      <tr >    
-<div >
+              <table>
+                    <tr >    
+				<div >
                     
                      
                        <td> 
@@ -120,7 +121,7 @@
             
                
                 </section>
-
+			<section>
                 <!-- list of all available conferencing rooms -->
                 <table style="width: 100%;" id="rooms-list"></table>
 
@@ -134,9 +135,13 @@
                     openSocket: function(config) {
                         var SIGNALING_SERVER = 'https://socketio-over-nodejs2.herokuapp.com:443/';
                         						
+					console.log(location.href);
+					var loc=location.href.split('#');
+					var meetingaddress=document.getElementById("meetingAddress");
+					meetingaddress.value=loc[1];
+					console.log(loc[1]);
                        config.channel = config.channel || location.href.replace(/\?.*?#|[\/:#%.\[\]]/g,'');
                         var sender = Math.round(Math.random() * 999999999) + 999999999;
-console.log(config.channel);
                         io.connect(SIGNALING_SERVER).emit('new-channel', {
                             channel: config.channel,
                             sender: sender
@@ -324,11 +329,11 @@ console.log(config.channel);
 
                 window.onresize = scaleVideos;
 
-var usrType='${usrType}';
-console.log(usrType);
-if(usrType!='t'){
-	document.getElementById('newConferance').style.display="none";
-}
+//var usrType='${usrType}';
+//console.log(usrType);
+//if(usrType!='t'){
+//	document.getElementById('newConferance').style.display="none";
+//}
             </script>  
         </article>
     </body>
